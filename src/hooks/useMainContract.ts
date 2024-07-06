@@ -51,22 +51,24 @@ export function useMainContract() {
     return () => clearInterval(timerId);
   }, [mainContract]);
 
-  return {
-    contract_address: mainContract?.address.toString(),
-    contract_balance: balance,
-    ...contractData,
-    async sendIncrement() {
-      return mainContract?.sendIncrement(sender, toNano(0.05), 5);
-    },
-    async sendDeposit() {
-      return mainContract?.sendDeposit(sender, toNano(1));
-    },
-    async sendWithdrawalRequest() {
-      return mainContract?.sendWithdrawalRequest(
-        sender,
-        toNano(0.05),
-        toNano(0.7)
-      );
-    },
-  };
+  return !(balance && mainContract)
+    ? null
+    : {
+        balance,
+        address: mainContract.address.toString(),
+        ...contractData,
+        async sendIncrement() {
+          return mainContract.sendIncrement(sender, toNano(0.05), 5);
+        },
+        async sendDeposit(amount: number) {
+          return mainContract.sendDeposit(sender, toNano(amount));
+        },
+        async sendWithdrawalRequest(amount: number) {
+          return mainContract.sendWithdrawalRequest(
+            sender,
+            toNano(0.05),
+            toNano(amount)
+          );
+        },
+      };
 }
