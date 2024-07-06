@@ -1,10 +1,15 @@
 import { TonConnectButton } from "@tonconnect/ui-react";
-import { fromNano } from "ton-core";
+import { fromNano } from "@ton/core";
 import "./App.css";
 import { useMainContract } from "./hooks/useMainContract";
+import WebApp from "@twa-dev/sdk";
 
 export default function App() {
   const contract = useMainContract();
+
+  const showAlert = () => {
+    WebApp.showAlert("Hey there!");
+  };
 
   return (
     <div>
@@ -13,8 +18,11 @@ export default function App() {
       </div>
       <div>
         <div className="card">
+          <b>{WebApp.platform}</b>
+          <br />
           <b>Our contract Address</b>
           <div className="hint">{contract?.address.slice(0, 30) + "..."}</div>
+          <br />
           <b>Our contract Balance</b>
           <div className="hint">
             {contract ? `${fromNano(contract.balance)} TON` : "Loading..."}
@@ -25,6 +33,8 @@ export default function App() {
           <b>Counter Value</b>
           <div>{contract?.counter_value ?? "Loading..."}</div>
         </div>
+
+        <button onClick={showAlert}>Show Alert</button>
 
         {contract && (
           <div

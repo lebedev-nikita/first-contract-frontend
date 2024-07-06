@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Address, toNano } from "ton-core";
+import { Address, toNano } from "@ton/core";
 import { MainContract } from "../contracts/MainContract";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonClient } from "./useTonClient";
@@ -19,6 +19,7 @@ export function useMainContract() {
 
   const mainContract = useAsyncInitialize(async () => {
     if (!client) return;
+
     const contract = new MainContract(
       Address.parse("EQDGlZJmMoefAu9lkALDPj4uNmOMbpcXyLQGnICOdU09rGHZ")
     );
@@ -31,7 +32,6 @@ export function useMainContract() {
     setContractData(null);
 
     async function setValue() {
-      console.count("getValue()");
       if (!mainContract) return;
 
       const val = await mainContract.getData();

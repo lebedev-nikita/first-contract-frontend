@@ -1,5 +1,5 @@
 import { useTonConnectUI } from "@tonconnect/ui-react";
-import { SenderArguments } from "ton-core";
+import { SenderArguments } from "@ton/core";
 
 export function useTonConnect() {
   const [tonConnectUI] = useTonConnectUI();
