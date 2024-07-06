@@ -1,17 +1,14 @@
 import { TonConnectButton } from "@tonconnect/ui-react";
-import React from "react";
+import { fromNano } from "ton-core";
 import "./App.css";
 import { useMainContract } from "./hooks/useMainContract";
 import { useTonConnect } from "./hooks/useTonConnect";
-import { fromNano } from "ton-core";
 
 export default function App() {
   const {
     contract_address,
     contract_balance,
     counter_value,
-    owner_address,
-    recent_sender,
     sendIncrement,
     sendDeposit,
     sendWithdrawalRequest,
